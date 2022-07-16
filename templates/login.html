@@ -1,0 +1,170 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Medjestic</title>
+  <!-- Iconic Fonts -->
+  
+    
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'pacientes/vendors/iconic-fonts/font-awesome/css/all.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'pacientes/vendors/iconic-fonts/flat-icons/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'pacientes/vendors/iconic-fonts/cryptocoins/cryptocoins.css' %}">
+  <link rel="stylesheet" href="{% static 'pacientes/vendors/iconic-fonts/cryptocoins/cryptocoins-colors.css' %}">
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'pacientes/assets/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- jQuery UI -->
+  <link href="{% static 'pacientes/assets/css/jquery-ui.min.css' %}" rel="stylesheet">
+  <!-- Medjestic styles -->
+  <link href="{% static 'pacientes/assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../../favicon.ico">
+
+</head>
+
+<body class="ms-body ms-primary-theme ms-logged-out">
+
+  <!-- Setting Panel -->
+  <div class="ms-toggler ms-settings-toggle ms-d-block-lg">
+    <i class="flaticon-gear"></i>
+  </div>
+  <div class="ms-settings-panel ms-d-block-lg">
+    <div class="row">
+
+      <div class="col-xl-4 col-md-4">
+        <h4 class="section-title">Customize</h4>
+        <div>
+          <label class="ms-switch">
+             <input type="checkbox" id="dark-mode">
+             <span class="ms-switch-slider round"></span>
+           </label>
+          <span> Dark Mode </span>
+        </div>
+
+      </div>
+      <div class="col-xl-4 col-md-4">
+        <h4 class="section-title">Keyboard Shortcuts</h4>
+        <p class="ms-directions mb-0"><code>Esc</code> Close Quick Bar</p>
+        <p class="ms-directions mb-0"><code>Alt + (1 -> 6)</code> Open Quick Bar Tab</p>
+        <p class="ms-directions mb-0"><code>Alt + Q</code> Enable Quick Bar Configure Mode</p>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Preloader -->
+  <div id="preloader-wrap">
+    <div class="spinner spinner-8">
+      <div class="ms-circle1 ms-child"></div>
+      <div class="ms-circle2 ms-child"></div>
+      <div class="ms-circle3 ms-child"></div>
+      <div class="ms-circle4 ms-child"></div>
+      <div class="ms-circle5 ms-child"></div>
+      <div class="ms-circle6 ms-child"></div>
+      <div class="ms-circle7 ms-child"></div>
+      <div class="ms-circle8 ms-child"></div>
+      <div class="ms-circle9 ms-child"></div>
+      <div class="ms-circle10 ms-child"></div>
+      <div class="ms-circle11 ms-child"></div>
+      <div class="ms-circle12 ms-child"></div>
+    </div>
+  </div>
+
+  <!-- Overlays -->
+  <div class="ms-aside-overlay ms-overlay-left ms-toggler" data-target="#ms-side-nav" data-toggle="slideLeft"></div>
+  <div class="ms-aside-overlay ms-overlay-right ms-toggler" data-target="#ms-recent-activity" data-toggle="slideRight"></div>
+
+ 
+  <!-- Main Content -->
+  <main class="body-content">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar ms-navbar">
+
+     
+
+      <div class="logo-sn logo-sm ms-d-block-sm">
+        <a class="pl-0 ml-0 text-center navbar-brand mr-0" href="../../index.html"><img src="https://via.placeholder.com/84x41" alt="logo"> </a>
+      </div>
+
+      <ul class="ms-nav-list ms-inline mb-0" id="ms-nav-options">
+        <li class="ms-nav-item">
+          <a href="#" class="btn btn-primary custom-btn">Login</a>
+        </li>
+      </ul>
+
+      <div class="ms-toggler ms-d-block-sm pr-0 ms-nav-toggler" data-toggle="slideDown" data-target="#ms-nav-options">
+        <span class="ms-toggler-bar bg-white"></span>
+        <span class="ms-toggler-bar bg-white"></span>
+        <span class="ms-toggler-bar bg-white"></span>
+      </div>
+
+    </nav>
+
+    <!-- Body Content Wrapper -->
+    <div class="ms-content-wrapper ms-auth">
+
+
+
+      <div class="ms-auth-container">
+        <div class="ms-auth-col">
+          <div class="ms-auth-bg"></div>
+        </div>
+        <div class="ms-auth-col">
+          <div class="ms-auth-form">
+            <form action="{% url 'login' %}" method="POST" novalidate>
+            <h1>Iniciar sesion</h1>
+            <p>Por favor digite el nombre de usuario y contraseña para continuar </p>   
+                      {% csrf_token %}
+                         {% for field in form.visible_fields %}
+                           <div class="form-group">
+                               {{ field.label_tag }}
+                                  {% render_field field class="form-control" %}
+                                    {% if messages%}
+                                      {% for message in messages %}
+                                        <span style="color:red">{{ message }}</span>
+                                      {% endfor %}
+                                     {% endif %}
+                         {% endfor %}
+                         <br>
+                             <input type="submit" value="Login" class="btn btn-block btn-primary">
+
+                           </div>
+                    </form>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SCRIPTS -->
+
+  <!-- Global Required Scripts Start -->
+  <script src="{% static 'pacientes/assets/js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'pacientes/assets/js/popper.min.js' %}"></script>
+  <script src="{% static 'pacientes/assets/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'pacientes/assets/js/perfect-scrollbar.js' %}"> </script>
+  <script src="{% static 'pacientes/assets/js/jquery-ui.min.js' %}"> </script>
+  <!-- Global Required Scripts End -->
+
+  <!-- Medjestic core JavaScript -->
+  <script src="{% static 'pacientes/assets/js/framework.js' %}"></script>
+
+  <!-- Settings -->
+  <script src="{% static 'pacientes/assets/js/settings.js' %}"></script>
+
+</body>
+
+</html>

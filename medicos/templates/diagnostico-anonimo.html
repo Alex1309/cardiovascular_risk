@@ -1,0 +1,254 @@
+{% extends 'baseMedicos.html' %} {% load static %} 
+
+{% block MenuLogo%}  
+    <a href="#" class="text-center ms-logo-img-link"> <img src="{{ medico_imagen.imagen.url }}" alt="logo"></a>
+    <h5 class="text-center text-white mt-2">{{nombre_doctor}}</h5>
+
+{% endblock MenuLogo%}
+
+{% block Bienvenido%}
+    <h6 class="dropdown-header ms-inline m-0"><span class="text-disabled">Bienvenid@, Dr(a). {{nombre_doctor}}</span></h6>
+{% endblock Bienvenido%}
+
+{% block logoLogout %}
+<img class="ms-user-img ms-img-round float-right" 
+    src="{{ medico_imagen.imagen.url }}" alt="people"> 
+{% endblock logoLogout %}
+
+
+{% block MenuDoctores %} 
+{% load widget_tweaks %}
+<form method="POST" class="post-form" enctype='multipart/form-data'>
+    {% csrf_token %} 
+<div class="ms-content-wrapper">
+    <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb pl-0">
+            <li class="breadcrumb-item"><a href="{% url 'medicos:menu_medico' %}"><i class="material-icons">home</i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pruebas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Diagnostico anonimo</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-xl-12 col-md-12">
+        <div class="ms-panel">
+          <div class="ms-panel-header ms-panel-custome">
+            <h6>Diagnostico Anonimo</h6>
+          </div>
+            <div class="ms-panel-body">
+                <form class="needs-validation" novalidate>
+    
+              
+
+                  <div class="form-row">
+
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">Peso</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="peso" id="validationCustom010" required>
+                      </div>
+                    </div>
+
+                      <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">Talla</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="talla" id="validationCustom010"   required>
+                      </div>
+                    </div>
+
+                      <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">Edad</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="edad" id="validationCustom010" required>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-row">
+                  
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom010">Presion sistolica</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" name="presion_sistolica" id="validationCustom010"   required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">Presion diastolica</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="presion_diastolica" id="validationCustom010"   required>
+                      </div>
+                    </div>
+      
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom010">Colesterol total</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" name="colesterol_total" id="validationCustom010"  required>
+                        </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-row">
+
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">HDL</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="hdl" id="validationCustom010"  required>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">LDL</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="ldl"  id="validationCustom010"  required>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom010">Triglicerios</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" name="triglicerios" id="validationCustom010"   required>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-row">
+
+                    <div class="col-md-3 mb-3">
+                      <label>Tabaquismo</label>
+                      <div class="input-group">
+                        <select class="form-control"  name="tabaquismo" id="validationCustom220" required>
+                          <option value="1">Sí</option>
+                          <option value="0">No-</option>
+                        </select>
+                      </div>
+                    </div>
+
+                      <div class="col-md-3 mb-3">
+                        <label>Diabetes</label>
+                        <div class="input-group">
+                          <select class="form-control" name="diabetes" id="validationCustom220" required>
+                            <option value="1">Sí</option>
+                            <option value="0">No-</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 mb-3">
+                      <label>Antecedentes familiares</label>
+                      <div class="input-group">
+                        <select class="form-control"  name="antecedentes" id="validationCustom220" required>
+                          <option value="1">Sí</option>
+                          <option value="0">No-</option>
+                        </select>
+                      </div>
+                    </div>
+
+                      <div class="col-md-3 mb-3">
+                      <label>Sexo</label>
+                      <div class="input-group">
+                        <select class="form-control" name="sexo" id="validationCustom220" required>
+                          <option value="2">Femenino</option>
+                          <option value="0">Masculino-</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-warning mt-4 d-inline w-20" type="submit">Cancelar</button>
+                  <button class="btn btn-warning mt-4 d-inline w-20" type="submit">Diagnosticar</button>
+                  
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+{% if result_riesgo %}
+  {% if result_riesgo == "Si tiene riesgo cardiovascular" %}
+      <div class="justify-content-md-center">
+        <!-- Notifications Widgets -->
+        <div class="col-xl-auto col-md-auto">
+                <div class="ms-card card-gradient-deteccion ms-widget ms-infographics-widget">
+                    <div class="ms-card-body media">
+                        <div class="media-body">
+                        <h4 style="color: #FFF;">El paciente SI presenta riesgo cardiovascular </h4>
+                        <button type="button" class="btn btn-danger">Descargar</button>
+
+                        </div>
+                    </div>
+          <i class="material-icons" style="font-size:70px;">add_alert</i>
+                </div>
+        </div>
+    </div>
+  {% else %}
+    <div class="justify-content-md-center">
+        <!-- Notifications Widgets -->
+        <div class="col-xl-auto col-md-auto">
+                <div class="ms-card card-gradient-nodeteccion ms-widget ms-infographics-widget">
+                    <div class="ms-card-body media">
+                        <div class="media-body">
+                        <h4 style="color: #FFF;">El paciente NO presenta Riesgo Cardiovascular.</h4>
+                        <button type="button" class="btn btn-success">Descargar</button>
+
+                        </div>
+                    </div>
+          <i class="material-icons" style="font-size:70px;">announcement</i>
+                </div>
+        </div>
+    </div>
+  {% endif %}
+{% endif %}
+
+
+{% endblock MenuDoctores %}
+
+{% block js %}
+<script>
+  $('#validatedCustomFile').on('change',function(){
+      //get the file name
+      var fileName = $(this).val();
+      var filename1 = fileName.substring(12);
+
+      //replace the "Choose a file" label
+      $(this).next('.custom-file-label').html(filename1);
+  })
+
+  
+</script>
+
+{% if messages %}
+  {% for message in messages %}
+  <script> 
+  Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: '{{ message }}',
+  showConfirmButton: false,
+  timer: 2000
+})</script>
+  {% endfor %}
+{% endif %}    
+
+
+{% if form.errors %}
+    {% for field in form %}
+      {% for error in field.errors %}
+
+        <script> 
+          Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: '{{ error }}',
+          showConfirmButton: false,
+          timer: 1500
+        })
+          </script>
+      {% endfor %}                 
+    {% endfor %}
+{% endif %}
+
+{% endblock js %}

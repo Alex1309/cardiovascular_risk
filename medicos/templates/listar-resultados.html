@@ -1,0 +1,130 @@
+{% extends 'baseMedicos.html' %} {% load static %} 
+{% load widget_tweaks %}
+{% block MenuLogo%}  
+    <a href="#" class="text-center ms-logo-img-link"> <img src="{{ medico_imagen.imagen.url }}" class="img" alt="logo"></a>
+    <h5 class="text-center text-white mt-2">{{nombre_doctor}}</h5>
+
+
+{% endblock MenuLogo%}
+
+{% block Bienvenido%}
+    <h6 class="dropdown-header ms-inline m-0"><span class="text-disabled">Bienvenid@, Dr(a). {{nombre_doctor}}</span></h6>
+{% endblock Bienvenido%}
+
+{% block logoLogout %}
+<img class="ms-user-img ms-img-round float-right" 
+    src="{{ medico_imagen.imagen.url }}" alt="people"> 
+{% endblock logoLogout %}
+
+{% block MenuDoctores %} 
+ <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb pl-0">
+            <li class="breadcrumb-item"><a href="{% url 'medicos:menu_medico' %}"><i class="material-icons">home</i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Reporte</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Resultados</li>
+          </ol>
+        </nav>
+      </div>
+<div class="ms-panel">
+  <div class="ms-panel-header">
+    <h6>Listado de resultados</h6>
+  </div>
+  <div class="ms-panel-body">
+    <div class="table-responsive">
+      <table id="data-ejemplo" class="table table-striped thead-primary w-100"></table>
+    </div>
+  </div>
+</div>
+{% if result_riesgo %}
+  {% if result_riesgo == "Si tiene riesgo cardiovascular" %}
+      <div class="justify-content-md-center">
+        <!-- Notifications Widgets -->
+        <div class="col-xl-auto col-md-auto">
+                <div class="ms-card card-gradient-deteccion ms-widget ms-infographics-widget">
+                    <div class="ms-card-body media">
+                        <div class="media-body">
+                        <h4 style="color: #FFF;">El paciente: {{nombre_paciente}} {{apellido_paciente}} con CC. {{identidad_paciente}} </h4>
+                        <h5 style="color: #FFF;"> presenta Riesgo Cardiovascular. </h5>
+                        </div>
+                    </div>
+          <i class="material-icons" style="font-size:70px;">add_alert</i>
+                </div>
+        </div>
+    </div>
+  {% else %}
+    <div class="justify-content-md-center">
+        <!-- Notifications Widgets -->
+        <div class="col-xl-auto col-md-auto">
+                <div class="ms-card card-gradient-nodeteccion ms-widget ms-infographics-widget">
+                    <div class="ms-card-body media">
+                        <div class="media-body">
+                        <h4 style="color: #FFF;">El paciente: {{nombre_paciente}} {{apellido_paciente}} con CC. {{identidad_paciente}} </h4>
+                        <h5 style="color: #FFF;">NO presenta Riesgo Cardiovascular. </h5>
+                        </div>
+                    </div>
+          <i class="material-icons" style="font-size:70px;">announcement</i>
+                </div>
+        </div>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% endblock MenuDoctores %}
+
+{% block js %}
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% if messages %}
+  {% for message in messages %}
+  <script> 
+  Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: '{{ message }}',
+  showConfirmButton: false,
+  timer: 1500
+})</script>
+  {% endfor %}
+{% endif %}  
+
+<script type="text/javascript">
+
+var dataejemplo = [
+{% for paciente in resultados %}  
+
+  [     "{{paciente.paciente.nombre}}", 
+        "{{paciente.paciente.apellido}}", 
+        "{{paciente.paciente.identidad}}",
+        "{{paciente.create_time}}", 
+
+        {% if paciente.resultado_paciente.resultado == "0" %}
+          "No presenta riesgo cardiovascular", 
+        {% else %}
+          "Si presenta riesgo cardiovascular", 
+        {% endif %}
+        "<a class='btn btn-outline-primary btn-sm' href='{% url 'medicos:generar_reporte_individual' paciente.paciente.user.id paciente.resultado_paciente.resultado paciente.id %}' role='button'> Descargar</a>", 
+        ],
+        {% endfor %}
+
+]
+
+
+
+      $('#data-ejemplo').DataTable( {
+    data: dataejemplo,
+    columns: [
+      { title: "Nombre" },
+      { title: "Apellidos" },
+      { title: "Identidad" },
+      { title: "Fecha" },
+      { title: "Resultado" },
+      { title: "Acciones" }
+
+
+    ],
+  });
+</script>
+
+
+{% endblock js %}

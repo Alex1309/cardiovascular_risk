@@ -1,0 +1,131 @@
+{% extends 'baseMedicos.html' %} {% load static %} 
+{% block MenuLogo%}  
+    <a href="#" class="text-center ms-logo-img-link"> <img src="{{ medico_imagen.imagen.url }}" alt="logo"></a>
+    <h5 class="text-center text-white mt-2">{{nombre_doctor}}</h5>
+    
+
+{% endblock MenuLogo%}
+
+{% block Bienvenido%}
+    <h6 class="dropdown-header ms-inline m-0"><span class="text-disabled">Bienvenid@, Dr(a). {{nombre_doctor}}</span></h6>
+{% endblock Bienvenido%}
+
+{% block logoLogout %}
+<img class="ms-user-img ms-img-round float-right" 
+    src="{{ medico_imagen.imagen.url }}" alt="people"> 
+{% endblock logoLogout %}
+{% block MenuDoctores %} 
+
+{% load widget_tweaks %}
+   <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb pl-0">
+            <li class="breadcrumb-item"><a href="{% url 'medicos:menu_medico' %}"><i class="material-icons">home</i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Paciente</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Listar pacientes</li>
+          </ol>
+        </nav>
+      </div>
+<div class="ms-panel">
+
+  <div class="ms-panel-header">
+    <h6>Lista de pacientes</h6>
+  </div>
+  <div class="ms-panel-body">
+    <div class="table-responsive">
+      <table id="data-ejemplo" class="table table-striped thead-primary w-100"></table>
+    </div>
+  </div>
+</div>
+
+{% endblock MenuDoctores %}
+
+{% block js %}
+{% if messages %}
+  {% for message in messages %}
+  <script> 
+  Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: '{{ message }}',
+  showConfirmButton: false,
+  timer: 1500
+})</script>
+  {% endfor %}
+{% endif %} 
+
+<script>
+  function eliminarProducto(id) {
+    Swal.fire({
+    "title": "¿Estas seguro?",
+    "text": "Esta acción no se puede deshacer",
+    "icon": "question",
+    "showCancelButton":true,
+    "cancelButtonText": "No, Cancelar",
+    "confirmButtonText":"Si, Eliminar",
+    "reverseButtons":true,
+    "confirmButtonColor": "#dc3545"
+    })
+    .then(function(result) {
+      if (result.isConfirmed){
+        window.location.href = "/medicos/eliminar-paciente/"+id+"/"
+      }
+    })
+  }
+</script>
+
+<script type="text/javascript">
+var dataejemplo = [
+{% for paciente in pacientes %}  
+
+  [     "{{paciente.nombre}}", 
+        "{{paciente.apellido}}", 
+        "{{paciente.email}}", 
+        "{{paciente.edad}}", 
+        "{{paciente.sexo}}",
+        "{{paciente.Peso}}",
+        "{{paciente.talla}}", 
+        "{{paciente.diabetes}}", 
+        "{{paciente.presion_sistolica}}", 
+        "{{paciente.presion_diastolica}}", 
+        "{{paciente.colesterol_total}}", 
+        "{{paciente.hdl}}",
+        "{{paciente.ldl}}", 
+        "{{paciente.triglicerios}}",  
+        "{{paciente.tabaquismo}}", 
+        "{{paciente.antecedentes}}", 
+        "<a href='{% url 'medicos:actualizar_paciente' paciente.user.id %}'> <i class='fas fa-pencil-alt ms-text-primary'></i></a>   <a href='#' onclick='eliminarProducto({{paciente.user.id}})' ><i class='far fa-trash-alt ms-text-danger'></i></a>" ],
+        {% endfor %}
+
+];
+
+
+
+      $('#data-ejemplo').DataTable( {
+    data: dataejemplo,
+    columns: [
+      { title: "Nombre" },
+      { title: "Apellidos" },
+      { title: "Email" },
+      { title: "Edad" },
+      { title: "Sexo" },
+      { title: "Peso" },
+      { title: "Talla" }, 
+      { title: "Diabetes" },
+      { title: "Presion sistolica" },
+      { title: "Presion diastolica" },
+      { title: "Colesterol total" },
+      { title: "HDL" },
+      { title: "LDL" },
+      { title: "Triglicerios" },
+      { title: "Tabaquismo" },
+      { title: "Antecedentes" },
+      { title: "Acciones" }
+
+
+    ],
+  });
+</script>
+
+
+{% endblock js %}

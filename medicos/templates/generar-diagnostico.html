@@ -1,0 +1,185 @@
+
+{% extends 'baseMedicos.html' %} {% load static %} {% load widget_tweaks %} 
+{% block MenuLogo%}  
+    <a href="#" class="text-center ms-logo-img-link"> <img src="{{ medico_imagen.imagen.url }}" alt="logo"></a>
+    <h5 class="text-center text-white mt-2">{{nombre_doctor}}</h5>
+
+{% endblock MenuLogo%}
+
+
+{% block Bienvenido%}
+    <h6 class="dropdown-header ms-inline m-0"><span class="text-disabled">Bienvenid@, Dr(a). {{nombre_doctor}}</span></h6>
+{% endblock Bienvenido%}
+
+{% block logoLogout %}
+<img class="ms-user-img ms-img-round float-right" 
+    src="{{ medico_imagen.imagen.url }}" alt="people"> 
+{% endblock logoLogout %}
+
+{% block MenuDoctores %} 
+  <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb pl-0">
+            <li class="breadcrumb-item"><a href="{% url 'medicos:menu_medico' %}"><i class="material-icons">home</i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Pruebas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Diagnostico paciente</li>
+          </ol>
+        </nav>
+      </div>
+<div class="ms-panel">
+
+  <div class="ms-panel-header">
+    <h6>Dianostico Individual - Lista de pacientes</h6>
+  </div>
+  <div class="ms-panel-body">
+    <div class="table-responsive">
+      <table id="data-ejemplo" class="table table-striped thead-primary w-100"></table>
+    </div>
+  </div>
+</div>
+{% if result_riesgo %}
+  {% if result_riesgo == "Si tiene riesgo cardiovascular" %}
+      <div class="justify-content-md-center">
+        <!-- Notifications Widgets -->
+        <div class="col-xl-auto col-md-auto">
+          <div class="ms-card card-gradient-deteccion ms-widget ms-infographics-widget">
+            <div class="ms-card-body media">
+              <div class="media-body">
+                  <h4 style="color: #FFF;">El paciente: {{nombre_paciente}} {{apellido_paciente}} con CC. {{identidad_paciente}} </h4>
+                  <h5 style="color: #FFF;"> presenta Riesgo Cardiovascular. </h5>
+                  
+                  <button id="buttonAceptar" class="btn btn-success" onclick='aceptar_resultado({{paciente_id}},{{resultado_paciente}})'>Aceptar resultado</button>
+                  <button id="buttonCancelar" onclick='rechazar_resultado({{paciente_id}},{{resultado_paciente}})' class="btn btn-danger" type="submit">Rechazar</button>
+                        
+
+              </div>
+            </div>         
+          <i class="material-icons" style="font-size:70px;">add_alert</i>
+        
+        </div>
+        </div>
+      </div>
+  {% else %}
+    <div class="justify-content-md-center">
+        <!-- Notifications Widgets -->
+        <div class="col-xl-auto col-md-auto">
+                <div class="ms-card card-gradient-nodeteccion ms-widget ms-infographics-widget">
+                    <div class="ms-card-body media">
+                        <div class="media-body">
+                        <h4 style="color: #FFF;">El paciente: {{nombre_paciente}} {{apellido_paciente}} con CC. {{identidad_paciente}} </h4>
+                        <h5 style="color: #FFF;">NO presenta Riesgo Cardiovascular. </h5>
+                        <button id="buttonAceptar" class="btn btn-success" onclick='aceptar_resultado({{paciente_id}},{{resultado_paciente}})'>Aceptar resultado</button>
+                        <button id="buttonCancelar" onclick='rechazar_resultado({{paciente_id}},{{resultado_paciente}})' class="btn btn-danger" type="submit">Rechazar</button>
+                        
+      
+
+                        </div>
+                    </div>
+          <i class="material-icons" style="font-size:70px;">announcement</i>
+                </div>
+        </div>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% endblock MenuDoctores %}
+
+{% block js %}
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% if messages %}
+  {% for message in messages %}
+  <script> 
+  Swal.fire({
+  position: 'top-end',
+  icon: 'success',
+  title: '{{ message }}',
+  showConfirmButton: false,
+  timer: 1500
+})</script>
+  {% endfor %}
+{% endif %}  
+<script>
+
+
+
+const disableButton = () => {
+    document.getElementById("buttonAceptar").disabled = true;
+    document.getElementById("buttonCancelar").disabled = true;
+
+};
+
+
+
+function aceptar_resultado(id,res) {
+Swal.fire({
+  title: '¿Acepta el resultado de la predición?',
+  showDenyButton: true,
+  confirmButtonColor: '#28a66f',
+  denyButtonColor: '#959c99',
+
+  confirmButtonText: 'Aceptar',
+  denyButtonText: `Descargar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    window.location.href = "/medicos/aceptar-resultado/"+id+"/"+res+"/"
+  } else if (result.isDenied) {
+      window.location.href = "/medicos/generar-pdf-paciente/"+id+"/"+res+"/"
+      disableButton()
+
+  }
+})
+}
+
+function rechazar_resultado(id,res) {
+Swal.fire({
+  title: '¿Acepta el resultado de la predición?',
+  showDenyButton: true,
+  confirmButtonColor: '#28a66f',
+  denyButtonColor: '#959c99',
+  confirmButtonText: 'Aceptar',
+  denyButtonText: `Descargar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    window.location.href = "/medicos/rechazar-resultado/"+id+"/"+res+"/"
+  } else if (result.isDenied) {
+      window.location.href = "/medicos/generar-pdf-paciente/"+id+"/"+(1-res)+"/"
+      disableButton()
+
+  }
+})
+}
+
+</script>
+<script type="text/javascript">
+
+var dataejemplo = [
+{% for paciente in pacientes %}  
+
+  [     "{{paciente.nombre}}", 
+        "{{paciente.apellido}}", 
+        "{{paciente.identidad}}", 
+        "<a href='{% url 'medicos:diagnosticar_paciente' paciente.user.id %}'> <i class='fa fa-stethoscope'></i></a>"],
+        {% endfor %}
+
+]
+
+
+
+      $('#data-ejemplo').DataTable( {
+    data: dataejemplo,
+    columns: [
+      { title: "Nombre" },
+      { title: "Apellidos" },
+      { title: "identidad" },
+      { title: "Acciones" }
+
+
+    ],
+  });
+</script>
+
+
+{% endblock js %}

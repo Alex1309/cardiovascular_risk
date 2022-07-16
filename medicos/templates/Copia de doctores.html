@@ -1,0 +1,207 @@
+{% extends 'baseMedicos.html' %} {% load static %} {% block MenuDoctores %} 
+<form method="POST" class="post-form">
+    {% csrf_token %} 
+<div class="ms-content-wrapper">
+    <div class="row">
+      <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb pl-0">
+            <li class="breadcrumb-item"><a href="#"><i class="material-icons">home</i> Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Doctor</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Agregar paciente</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="col-xl-12 col-md-12">
+        <div class="ms-panel">
+          <div class="ms-panel-header ms-panel-custome">
+            <h6>Agregar Paciente</h6>
+            <a href="#" class="ms-text-primary">Doctors List</a>
+          </div>
+           
+            <div class="ms-panel-body">
+                <form class="needs-validation" novalidate>
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="validationCustom001">Nombre</label>
+                      <div class="input-group">
+                        {{ form.nombre }}
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="validationCustom002">Apellidos</label>
+                      <div class="input-group">
+                        {{ form.apellido }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="validationCustom003">Email</label>
+                      <div class="input-group">
+                        {{ form.email }}
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <label for="validationCustom004">Password</label>
+                      <div class="input-group">
+                        {{ form.password }}
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="validationCustom005">Dirección</label>
+                      <div class="input-group">
+                        {{ form.direccion }}
+    
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label for="validationCustom007">Telefono</label>
+                        <div class="input-group">
+                          {{ form.telefono }}
+      
+                        </div>
+                      </div>
+    
+                   
+                  </div>
+    
+    
+                  <div class="form-row">
+                    
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom008">Fecha de nacimiento</label>
+                      <div class="input-group">
+                        {{ form.edad }}
+    
+                      </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="validationCustom008">Identidad</label>
+                      <div class="input-group">
+                        {{ form.identidad }}
+    
+                      </div>
+                    </div>
+                      <div class="col-md-4 mb-3">
+                        <label>Imagen del paciente</label>
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="validatedCustomFile">
+                          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+      
+                        </div>
+                      </div>
+                  </div>
+    
+    
+    
+    
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom220">Tipo de Sangre</label>
+                        <div class="input-group">
+                            {{ form.tipo_sangre }}
+                          </div>
+                      </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom005">Peso</label>
+                        <div class="input-group">
+                          {{ form.Peso }}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">Talla</label>
+                        <div class="input-group">
+                          {{ form.talla}}
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom005">Presion Sistolica</label>
+                        <div class="input-group">
+                          {{ form.presion_sistolica }}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">Presion Diastolica</label>
+                        <div class="input-group">
+                          {{ form.presion_diastolica}}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">Colesterol total</label>
+                        <div class="input-group">
+                          {{ form.colesterol_total}}
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom005">HDL</label>
+                        <div class="input-group">
+                          {{ form.hdl }}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">LDL</label>
+                        <div class="input-group">
+                          {{ form.ldl}}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">Triglicerios</label>
+                        <div class="input-group">
+                          {{ form.triglicerios}}
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="validationCustom005">Tabaquismo</label>
+                        <div class="input-group">
+                          {{ form.tabaquismo }}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <label for="validationCustom005">Diabetes</label>
+                        <div class="input-group">
+                          {{ form.diabetes }}
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">Antecedentes familiares</label>
+                        <div class="input-group">
+                          {{ form.antecedentes}}
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-4 mb-2">
+                        <label for="validationCustom009">Sexo</label>
+                        <div class="input-group">
+                          {{ form.sexo}}
+                        </div>
+                      </div>
+                </div>
+    
+                
+    
+                  <button class="btn btn-warning mt-4 d-inline w-20" type="submit">Reset</button>
+                  <button type="submit" class="btn btn-success">Update</button>  
+
+    
+              </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock MenuDoctores %}
+

@@ -1,0 +1,69 @@
+{% extends 'basePacientes.html' %} {% load static %}
+
+{% block logo_paciente %}
+    <a href="#" class="text-center ms-logo-img-link"> <img src="{{ paciente_imagen.imagen.url }}" alt="logo"></a>
+    <h5 class="text-center text-white mt-2">Paciente</h5>
+    <h6 class="text-center text-white mb-3">{{nombre_paciente}}</h6>
+{% endblock logo_paciente %}
+
+{% block Bienvenido_drowpdown %}
+    <a href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+    <img class="ms-user-img ms-img-round float-right" src="{{ paciente_imagen.imagen.url }}" alt="people"> </a>
+
+{% endblock Bienvenido_drowpdown%}
+{% block Bienvenido%}
+
+    <h6 class="dropdown-header ms-inline m-0"><span class="text-disabled">Bienvenid@, {{nombre_paciente}}</span></h6>
+{% endblock Bienvenido%}
+
+{% block MenuPacientes %} 
+
+<div class="ms-panel">
+  <div class="ms-panel-header">
+    <h6>Mis resultados</h6>
+  </div>
+  <div class="ms-panel-body">
+    <div class="table-responsive">
+      <table id="data-ejemplo1" class="table table-striped thead-primary w-100"></table>
+    </div>
+  </div>
+</div>
+
+{% endblock MenuPacientes %}
+{% block js %}
+
+<script type="text/javascript">
+var dataejemplo = [
+{% for resultado in resultados %}  
+
+  [     "{{resultado.paciente.nombre}}", 
+        "{{resultado.paciente.apellido}}", 
+        "{{resultado.create_time}}",
+
+        {% if resultado.resultado_paciente.resultado == "0" %}
+          "No presenta riesgo cardiovascular", 
+        {% else %}
+          "Si presenta riesgo cardiovascular", 
+        {% endif %}
+        "<a class='btn btn-outline-primary btn-sm' href='{% url 'medicos:generar_reporte_individual' resultado.paciente.user.id resultado.resultado_paciente.resultado resultado.id %}' role='button'> Descargar</a>", 
+        ],
+        {% endfor %}
+
+]
+
+
+
+      $('#data-ejemplo1').DataTable( {
+    data: dataejemplo,
+    columns: [
+      { title: "Nombre" },
+      { title: "Apellidos" },
+      { title: "Fecha" },
+      { title: "Resultado" },
+      { title: "Acciones" }
+
+
+    ],
+  });
+</script>
+{% endblock js %}
