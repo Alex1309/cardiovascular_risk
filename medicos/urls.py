@@ -29,4 +29,5 @@ urlpatterns=[
     re_path('actualizar-paciente/(?P<id>\d+)/$', actualizar_paciente_uno, name='actualizar_paciente'),
     re_path('generar-reporte-paciente/(?P<id>\d+)/(?P<pk_2>\d+)/(?P<pk_3>\d+)/$', generar_pdf_individual, name='generar_reporte_individual'),
     re_path('generar-reporte-multiple/', generar_pdf_multiple, name='generar_pdf_multiple'),
+    re_path('generar-pdf-anonimo/', generar_pdf_anonimo, name='generar_pdf_anonimo'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

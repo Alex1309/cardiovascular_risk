@@ -176,7 +176,7 @@
                     <div class="ms-card-body media">
                         <div class="media-body">
                         <h4 style="color: #FFF;">El paciente SI presenta riesgo cardiovascular </h4>
-                        <button type="button" class="btn btn-danger">Descargar</button>
+                        <a href="{% url 'medicos:generar_pdf_anonimo' %}" class="btn btn-success">Descargar</a>
 
                         </div>
                     </div>
@@ -192,7 +192,8 @@
                     <div class="ms-card-body media">
                         <div class="media-body">
                         <h4 style="color: #FFF;">El paciente NO presenta Riesgo Cardiovascular.</h4>
-                        <button type="button" class="btn btn-success">Descargar</button>
+                        <a href="{% url 'medicos:generar_pdf_anonimo' %}" class="btn btn-success">Descargar</a>
+
 
                         </div>
                     </div>
