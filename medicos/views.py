@@ -186,6 +186,7 @@ def generar_pdf_multiple(request):
             {"item": "Tabaquismo:", "amount": tabaquismo},
             {"item": "Antecedentes:", "amount": antecedentes},
         ]
+        pdf.set_text_color(0,0,0)   
         pdf.add_page()
         pdf.set_font('courier', 'B', 16)
         pdf.cell(190, 10, 'Reporte PDF - Diagnóstico Multiple', 0, 0, 'C')
@@ -207,8 +208,6 @@ def generar_pdf_multiple(request):
         if result =="no presenta riesgo Cardiovascular.":
             pdf.set_text_color(92, 190, 21) 
             pdf.cell(0, 10, 'El paciente ' + result, 0, 0, 'C')
-
-
         else:
             pdf.set_text_color(255,0,0)   
             pdf.cell(0, 10, 'El paciente ' + result, 0, 0, 'C')
@@ -626,8 +625,9 @@ def actualizar_paciente_uno(request, id):
             form.save()
         messages.success(request,'Guardar')
         return http.HttpResponseRedirect('/medicos/listar-pacientes')
-
+    medico_imagen = Medico.objects.get(user__id=request.user.id)
     context["form"] = form
+    context["medico_imagen"] = medico_imagen
     return render(request, "agregar-pacientes.html", context)
 
 
