@@ -1,9 +1,10 @@
 {% extends 'baseMedicos.html' %} {% load static %} 
-{% block MenuLogo%}  
+
+{% block MenuLogo%}
+{% if medico_imagen.imagen %}
     <a href="#" class="text-center ms-logo-img-link"> <img src="{{ medico_imagen.imagen.url }}" class="img" alt="logo"></a>
+{% endif %}
     <h5 class="text-center text-white mt-2">{{nombre_doctor}}</h5>
-
-
 {% endblock MenuLogo%}
 
 {% block Bienvenido%}
@@ -11,8 +12,9 @@
 {% endblock Bienvenido%}
 
 {% block logoLogout %}
-<img class="ms-user-img ms-img-round float-right" 
-    src="{{ medico_imagen.imagen.url }}" alt="people"> 
+    {% if medico_imagen.imagen %}
+        <img class="ms-user-img ms-img-round float-right" src="{{ medico_imagen.imagen.url }}" alt="people"> 
+    {% endif %}
 {% endblock logoLogout %}
 
 {% block MenuDoctores %} 
